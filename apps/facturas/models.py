@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from usuarios.models import User
 
@@ -36,6 +37,11 @@ class Concept(models.Model):
 
 
 class Factura(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     emisor  = models.ForeignKey(
         User, 
         related_name='emisor',

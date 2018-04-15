@@ -17,17 +17,18 @@ class User(AbstractUser):
 
 
 class Fiscal(models.Model):
-    client = models.OneToOneField(User, null=False, blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=False, blank=True, on_delete=models.CASCADE)
     rfc = models.CharField(max_length=13, blank=False, null=False, verbose_name='RFC')
     business_name = models.CharField(max_length=30, blank=False, null=False, verbose_name='Razon Social')
     physical_person = models.BooleanField(default=True, blank=False, null=False, verbose_name='Persona Fisica')
 
     def __str__(self):
-        return "{}".format(self.client.username)
+        return "{}".format(self.user.username)
 
     class Meta:
         verbose_name = 'Datos Fiscales'
         verbose_name_plural = 'Datos Fiscales'
+
 
 class Address(models.Model):
     fiscal = models.OneToOneField(Fiscal, blank=True, null=False, on_delete=models.CASCADE)
@@ -39,7 +40,7 @@ class Address(models.Model):
     state = models.CharField(verbose_name='Estado', max_length=128)
 
     def __str__(self):
-        return '{}'.format(self.fiscal.client.username)
+        return '{}'.format(self.fiscal.user.username)
 
     class Meta:
         verbose_name = 'Direccion Fiscal'
