@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'usuarios.apps.UsuariosConfig',
+    'facturas.apps.FacturasConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth.registration',
@@ -54,7 +56,7 @@ UTH_USER_MODEL = 'users.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ROOT_URLCONF = 'Factura.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
