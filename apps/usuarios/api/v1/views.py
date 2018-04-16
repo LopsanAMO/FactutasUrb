@@ -68,7 +68,6 @@ class FiscalAPIView(APIView):
     def put(self, request):
         req_inf = RequestInfo()
         errors = []
-        import pudb; pudb.set_trace()
         try:
             fiscal_serializer = FiscalSerializer(
                 Fiscal.objects.get(user=request.user),
