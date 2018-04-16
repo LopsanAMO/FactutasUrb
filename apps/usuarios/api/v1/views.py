@@ -105,7 +105,6 @@ class FiscalAPIView(APIView):
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
 def create_simple_user(request):
-    import pudb; pudb.set_trace()
     import random
     import re
     req_inf = RequestInfo()

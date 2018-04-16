@@ -56,7 +56,6 @@ def get_bill(request):
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
 def create_bill(request):
-    import pudb; pudb.set_trace()
     req_inf = RequestInfo()
     errors = []
     concepts = []
