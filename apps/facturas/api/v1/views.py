@@ -11,9 +11,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponse
 from wsgiref.util import FileWrapper
 from django.conf import settings
-from .serializers import FacturaSerializer, FacturaDetailSerializer
+from .serializers import FacturaSerializer, FacturaDetailSerializer, SimpleFacturaSerializer, ConceptSerializer
 from facturas.models import Factura
 from usuarios.handlers import generate_jwt
+from usuarios.models import Fiscal
 from utils.helpers import RequestInfo
 from dicttoxml import dicttoxml
 
@@ -28,7 +29,6 @@ def bills(request):
         "receiver_bill": FacturaSerializer(
             Factura.objects.filter(receiver=request.user),
             many=True).data,
-        "status": status.HTTP_200_OK
     }
     return req_inf.return_status(data)
 
@@ -49,5 +49,42 @@ def get_bill(request):
         return response
     except ObjectDoesNotExist as e:
         return req_inf.status(e.args[0], status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return req_inf.status(e.args[0], status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny, ))
+def create_bill(request):
+    import pudb; pudb.set_trace()
+    req_inf = RequestInfo()
+    errors = []
+    concepts = []
+    try:
+        request.data['basic_information']['emisor'] = Fiscal.objects.get(
+            rfc=request.data['basic_information']['emisor_rfc']).user.id
+        request.data['basic_information']['receiver'] = Fiscal.objects.get(
+            rfc=request.data['basic_information']['receiver_rfc']).user.id
+        request.data['basic_information'].pop('emisor_rfc')
+        request.data['basic_information'].pop('receiver_rfc')
+        for data in request.data.get('concepts'):
+            concept_serializer = ConceptSerializer(data=data)
+            if concept_serializer.is_valid():
+                concept_serializer.save()
+                concepts.append(concept_serializer.instance)
+            else:
+                errors.append(concept_serializer.errors)
+        if len(errors) == 0:
+            bill_serializer = SimpleFacturaSerializer(data=request.data.get('basic_information'))
+            if bill_serializer.is_valid():
+                bill_serializer.save()
+                for con in concepts:
+                    bill_serializer.instance.concepts.add(con)
+                    bill_serializer.save()
+                return req_inf.status()
+            else:
+                return req_inf.status(bill_serializer.errors, status.HTTP_400_BAD_REQUEST)
+        else:
+            return req_inf.return_status(errors)
     except Exception as e:
         return req_inf.status(e.args[0], status.HTTP_400_BAD_REQUEST)

@@ -70,3 +70,9 @@ class LoginSerializer(rest_auth.serializers.LoginSerializer):
         fields['email'] = fields['username']
         del fields['username']
         return fields
+
+
+class BasicUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')

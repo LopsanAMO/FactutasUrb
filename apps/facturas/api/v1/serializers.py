@@ -16,6 +16,12 @@ class ConceptSerializer(serializers.ModelSerializer):
         fields = ('product_key', 'quantity', 'description', 'amount')
 
 
+class SimpleFacturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Factura
+        fields = ('emisor', 'receiver', 'date_expedition', 'coin', 'folio', 'way_to_pay')
+
+
 class FacturaDetailSerializer(serializers.ModelSerializer):
     emisor = serializers.SerializerMethodField()
     receiver = serializers.SerializerMethodField()
