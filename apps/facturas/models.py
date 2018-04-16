@@ -63,7 +63,7 @@ class Factura(models.Model):
         blank=False,
         null=False
     )
-    moneda = models.CharField(
+    coin = models.CharField(
         max_length=4,
         blank=False,
         null=False

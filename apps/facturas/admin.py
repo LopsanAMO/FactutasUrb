@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import Factura, Concept
 
-# Register your models here.
+
+@admin.register(Factura)
+class AdminFactura(admin.ModelAdmin):
+    list_display = ('id', 'emisor', 'receiver', 'date_expedition', 'folio')
+    list_filter = ('emisor', 'receiver', 'date_expedition')
+
+admin.site.register(Concept)

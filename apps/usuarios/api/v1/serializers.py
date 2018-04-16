@@ -26,6 +26,11 @@ class FiscalDetailSerializer(serializers.ModelSerializer):
     def get_address(self, obj):
         return AddreesSerializer(Address.objects.get(fiscal_id=obj.id)).data
 
+class FiscalFacturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fiscal
+        fields = ('rfc', 'business_name')
+
 
 class UserInfoSerializer(serializers.ModelSerializer):
     fiscal_information = serializers.SerializerMethodField()
