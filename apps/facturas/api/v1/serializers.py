@@ -7,7 +7,7 @@ from usuarios.models import Fiscal
 class FacturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Factura
-        fields = ('id', 'date_expedition')
+        fields = ('_id', 'date_expedition')
 
 
 class ConceptSerializer(serializers.ModelSerializer):
