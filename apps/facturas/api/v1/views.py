@@ -28,8 +28,9 @@ def bills(request):
         "receiver_bill": FacturaSerializer(
             Factura.objects.filter(receiver=request.user),
             many=True).data,
+        "status": status.HTTP_200_OK
     }
-    return Response({'data': data})
+    return req_inf.return_status(data)
 
 
 @api_view(['GET'])
