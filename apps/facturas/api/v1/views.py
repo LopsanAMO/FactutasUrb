@@ -30,7 +30,7 @@ def bills(request):
             many=True).data,
         "receiver_bill": FacturaSerializer(
             Factura.objects.filter(receiver=request.user),
-            many=True).data,
+            many=True).data
     }
     return req_inf.return_status(data)
 
@@ -58,7 +58,6 @@ def get_bill(request):
 
 
 @api_view(['POST'])
-@permission_classes((AllowAny, ))
 def create_bill(request):
     """create bill
     :param basic_information: (dict)

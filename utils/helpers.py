@@ -22,9 +22,10 @@ class RequestInfo(object):
         self.data['detail'] = message
         return self.return_status(self.data)
 
-    def return_status(self, data=None):
+    def return_status(self, data=None, status=status.HTTP_200_OK):
         if data is not None and data != self.data:
             self.data['data'] = data
+        self.data['status'] = status
         return HttpResponse(
             json.dumps(self.data),
             content_type='application/json',
