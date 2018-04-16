@@ -126,21 +126,20 @@ class FiscalAPIView(APIView):
 def create_simple_user(request):
     """create simple user fiscal info
     :basic_info: (dict)
-		:param email: (str)
-		:param first_name: (str)
-		:param last_name: (str)
-	:param fiscal: (dict)
-		:param rfc: (str)
-		:param business_name: (str)
-		:param physical_person: (bool)
-	:param address: (dict)
-		:param street: (str)
-		:param street_number: (str)
-		:param zip_code: (str)
-		:param neighborhood: (str)
-		:param city: (str)
-		:param state: (str)
-	}
+	:param email: (str)
+	:param first_name: (str)
+	:param last_name: (str)
+    :param fiscal: (dict)
+	:param rfc: (str)
+	:param business_name: (str)
+	:param physical_person: (bool)
+    :param address: (dict)
+	:param street: (str)
+	:param street_number: (str)
+	:param zip_code: (str)
+	:param neighborhood: (str)
+	:param city: (str)
+	:param state: (str)
     """
     import random
     import re
