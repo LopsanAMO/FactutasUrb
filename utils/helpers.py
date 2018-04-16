@@ -43,9 +43,3 @@ class ErrorMesages(object):
         except Exception as e:
             raise serializers.ValidationError(e)
         return email
-
-
-class LargeResultsSetPagination(PageNumberPagination):
-    page_size = 9
-    page_size_query_param = 'limit'
-    max_page_size = 20
