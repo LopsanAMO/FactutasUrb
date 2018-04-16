@@ -13,7 +13,7 @@ class AddreesSerializer(serializers.ModelSerializer):
 class FiscalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fiscal
-        fields = ('rfc', 'business_name')
+        fields = ('rfc', 'business_name', 'physical_person')
 
 
 class FiscalDetailSerializer(serializers.ModelSerializer):

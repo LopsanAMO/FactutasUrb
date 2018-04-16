@@ -66,3 +66,35 @@ class FiscalAPIView(APIView):
             return req_inf.status(e.args[0], status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return req_inf.status(e.args[0], status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        req_inf = RequestInfo()
+        errors = []
+        import pudb; pudb.set_trace()
+        try:
+            fiscal_serializer = FiscalSerializer(
+                Fiscal.objects.get(user=request.user),
+                data=request.data.get('fiscal')
+            )
+            address_serializer = AddreesSerializer(
+                Address.objects.get(fiscal_id=fiscal_serializer.instance.id),
+                data=request.data.get('address')
+            )
+            if fiscal_serializer.is_valid() and address_serializer.is_valid():
+                fiscal_serializer.save()
+                address_serializer.save()
+                return req_inf.status()
+            else:
+                try:
+                   errors.append(fiscal_serializer.errors)
+                except Exception:
+                    pass
+                try:
+                    errors.append(address_serializer.errors)
+                except Exception:
+                    pass
+                return req_inf.status(errors, status.HTTP_400_BAD_REQUEST)
+        except ObjectDoesNotExist as e:
+            return req_inf.status(e.args[0], status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return req_inf.status(e.args[0], status.HTTP_400_BAD_REQUEST)
