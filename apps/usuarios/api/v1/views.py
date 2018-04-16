@@ -70,7 +70,7 @@ class FiscalAPIView(APIView):
         try:
             if rfc is not None:
                 user = Fiscal.objects.get(rfc=rfc).user
-            return Response(UserInfoSerializer(suser).data)
+            return Response(UserInfoSerializer(user).data)
         except ObjectDoesNotExist as e:
             return req_inf.status(e.args[0], status.HTTP_404_NOT_FOUND)
         except Exception as e:
