@@ -88,9 +88,13 @@ class FiscalAPIView(APIView):
         """
         req_inf = RequestInfo()
         errors = []
+        rfc = request.data.get('rfc', None)
+        user = request.user
+        if rfc is not None:
+            user = Fiscal.objects.get(rfc=rfc).user
         try:
             fiscal_serializer = FiscalSerializer(
-                Fiscal.objects.get(user=request.user),
+                Fiscal.objects.get(user=user),
                 data=request.data.get('fiscal')
             )
             address_serializer = AddreesSerializer(
