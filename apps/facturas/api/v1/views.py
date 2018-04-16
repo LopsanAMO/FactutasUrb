@@ -37,7 +37,7 @@ def bills(request):
 def get_bill(request):
     req_inf = RequestInfo()
     try:
-        bill = Factura.objects.get(id=request.GET.get('bill'))
+        bill = Factura.objects.get(_id=request.GET.get('bill'))
         name = 'bill-{}{}.xml'.format(request.user.username, bill.id)
         with open(name, 'wb') as f:
             f.write(dicttoxml(FacturaDetailSerializer(bill).data, attr_type=False))
