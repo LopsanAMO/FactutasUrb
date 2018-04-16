@@ -32,7 +32,7 @@ def bills(request):
             Factura.objects.filter(receiver=request.user),
             many=True).data
     }
-    return req_inf.return_status(data)
+    return Response(data)
 
 
 @api_view(['GET'])
