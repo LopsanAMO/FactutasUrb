@@ -19,7 +19,7 @@ class User(AbstractUser):
 class Fiscal(models.Model):
     user = models.OneToOneField(User, null=False, blank=True, on_delete=models.CASCADE)
     rfc = models.CharField(max_length=13, blank=False, null=False, verbose_name='RFC')
-    business_name = models.CharField(max_length=30, blank=False, null=False, verbose_name='Razon Social')
+    business_name = models.CharField(max_length=200, blank=False, null=False, verbose_name='Razon Social')
     physical_person = models.BooleanField(default=True, blank=False, null=False, verbose_name='Persona Fisica')
 
     @classmethod
