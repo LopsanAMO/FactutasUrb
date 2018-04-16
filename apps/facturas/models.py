@@ -37,7 +37,8 @@ class Concept(models.Model):
 
 
 class Factura(models.Model):
-    _id = models.UUIDField(
+    _id = models.CharField(
+        max_length=50,
         unique=True,
         default=uuid.uuid4,
         editable=False
