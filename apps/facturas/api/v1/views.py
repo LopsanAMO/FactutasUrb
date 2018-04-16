@@ -5,7 +5,6 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.decorators import api_view, permission_classes
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponse
@@ -61,13 +60,13 @@ def get_bill(request):
 def create_bill(request):
     """create bill
     :param basic_information: (dict)
-		:param emisor_rfc: (str)
-		:param receiver_rfc: (str)
-		:param date_expedition: (date)
-		:param coin: (str)
-		:param folio: (str)
-		:param way_to_pay: (str)
-	:param concepts: (list of dicts)
+	:param emisor_rfc: (str)
+	:param receiver_rfc: (str)
+	:param date_expedition: (date)
+	:param coin: (str)
+	:param folio: (str)
+	:param way_to_pay: (str)
+    :param concepts: (list of dicts)
         :param product_key: (str)
         :param quantity: (str)
         :param description: (str)
