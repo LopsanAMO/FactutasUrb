@@ -24,7 +24,7 @@ class FiscalDetailSerializer(serializers.ModelSerializer):
         fields = ('rfc', 'business_name', 'address')
 
     def get_address(self, obj):
-        return AddreesSerializer(Address.objects.get(fiscal__id=obj.id)).data
+        return AddreesSerializer(Address.objects.get(fiscal_id=obj.id)).data
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         fields = ('first_name', 'last_name', 'email', 'fiscal_information')
 
     def get_fiscal_information(self, obj):
-        return FiscalDetailSerializer(client__id=obj.id).data
+        return FiscalDetailSerializer(Fiscal.objects.get(user_id=obj.id)).data
 
 
 class UserSerializer(serializers.ModelSerializer):

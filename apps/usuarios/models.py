@@ -22,6 +22,12 @@ class Fiscal(models.Model):
     business_name = models.CharField(max_length=30, blank=False, null=False, verbose_name='Razon Social')
     physical_person = models.BooleanField(default=True, blank=False, null=False, verbose_name='Persona Fisica')
 
+    @classmethod
+    def create(cls, user):
+        _fiscal = cls(rfc='-', business_name='-', user=user)
+        _fiscal.save()
+        return _fiscal
+
     def __str__(self):
         return "{}".format(self.user.username)
 
@@ -38,6 +44,19 @@ class Address(models.Model):
     neighborhood = models.CharField(verbose_name='Delegación', max_length=128)
     city = models.CharField(verbose_name='Ciudad', max_length=128)
     state = models.CharField(verbose_name='Estado', max_length=128)
+
+    @classmethod
+    def create(cls, fiscal):
+        _address = cls(
+            fiscal=fiscal,
+            street='-',
+            street_number='-',
+            zip_code='-',
+            neighborhood='-',
+            city='-',
+            state='-'
+        )
+        _address.save()
 
     def __str__(self):
         return '{}'.format(self.fiscal.user.username)

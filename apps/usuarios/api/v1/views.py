@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.decorators import api_view, permission_classes
+from django.core.exceptions import ObjectDoesNotExist
 from .serializers import (
     AddreesSerializer, FiscalSerializer, FiscalDetailSerializer,
     UserInfoSerializer, UserSerializer, CreateUserSerializer,
@@ -50,5 +51,18 @@ class UserAPIView(APIView):
                     serializer.errors,
                     status=status.HTTP_400_BAD_REQUEST
                 )
+        except ObjectDoesNotExist as e:
+            return req_inf.status(e.args[0], status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return req_inf.status(e.args[0], status.HTTP_400_BAD_REQUEST)
+
+
+class FiscalAPIView(APIView):
+    def get(self, request):
+        req_inf = RequestInfo()
+        try:
+            return Response(UserInfoSerializer(request.user).data)
+        except ObjectDoesNotExist as e:
+            return req_inf.status(e.args[0], status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return req_inf.status(e.args[0], status.HTTP_400_BAD_REQUEST)
