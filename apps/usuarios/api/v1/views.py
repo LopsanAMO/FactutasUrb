@@ -65,8 +65,12 @@ class FiscalAPIView(APIView):
         """Get fiscal information from user
         """
         req_inf = RequestInfo()
+        rfc = request.data.get('rfc', None)
+        user = request.user
         try:
-            return Response(UserInfoSerializer(request.user).data)
+            if rfc is not None:
+                user = Fiscal.objects.get(rfc=rfc).user
+            return Response(UserInfoSerializer(user).data)
         except ObjectDoesNotExist as e:
             return req_inf.status(e.args[0], status.HTTP_404_NOT_FOUND)
         except Exception as e:
