@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework import serializers
 from rest_framework.pagination import PageNumberPagination
-from users.models import User
+from usuarios.models import User
 
 
 class RequestInfo(object):

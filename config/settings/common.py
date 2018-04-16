@@ -124,7 +124,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'LOGIN_SERIALIZER': 'users.api.v1.serializers.LoginSerializer',
+    'LOGIN_SERIALIZER': 'usuarios.api.v1.serializers.LoginSerializer',
     'TOKEN_SERIALIZER': 'rest_auth.serializers.TokenSerializer',
     'JWT_SERIALIZER': 'rest_auth.serializers.JWTSerializer',
     'USER_DETAILS_SERIALIZER': 'rest_auth.serializers.UserDetailsSerializer',
@@ -133,7 +133,7 @@ REST_AUTH_SERIALIZERS = {
     'PASSWORD_CHANGE_SERIALIZER': 'rest_auth.serializers.PasswordChangeSerializer'}
 
 JWT_AUTH = {
-    'JWT_PAYLOAD_HANDLER': 'users.handlers.jwt_payload_handler',
+    'JWT_PAYLOAD_HANDLER': 'usuarios.handlers.jwt_payload_handler',
 
     'JWT_PAYLOAD_GET_USER_ID_HANDLER':
     'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',

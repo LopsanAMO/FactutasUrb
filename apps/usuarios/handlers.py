@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework_jwt.compat import get_username, get_username_field
 from rest_framework_jwt.settings import api_settings
-from users.api.v1.serializers import UserSerializer
+from usuarios.api.v1.serializers import UserSerializer
 
 
 def jwt_payload_handler(user):
