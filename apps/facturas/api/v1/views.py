@@ -21,6 +21,8 @@ from dicttoxml import dicttoxml
 
 @api_view(['GET'])
 def bills(request):
+    """get list of disponible bills
+    """
     req_inf = RequestInfo()
     data = {
         "emisor_bill": FacturaSerializer(
@@ -36,6 +38,8 @@ def bills(request):
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
 def get_bill(request):
+    """download bill
+    """
     req_inf = RequestInfo()
     try:
         bill = Factura.objects.get(_id=request.GET.get('bill'))
@@ -56,6 +60,20 @@ def get_bill(request):
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
 def create_bill(request):
+    """create bill
+    :param basic_information: (dict)
+		:param emisor_rfc: (str)
+		:param receiver_rfc: (str)
+		:param date_expedition: (date)
+		:param coin: (str)
+		:param folio: (str)
+		:param way_to_pay: (str)
+	:param concepts: (list of dicts)
+        :param product_key: (str)
+        :param quantity: (str)
+        :param description: (str)
+        :param amount: (str)
+    """
     req_inf = RequestInfo()
     errors = []
     concepts = []

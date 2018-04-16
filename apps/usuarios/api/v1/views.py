@@ -62,6 +62,8 @@ class UserAPIView(APIView):
 
 class FiscalAPIView(APIView):
     def get(self, request):
+        """Get fiscal information from user
+        """
         req_inf = RequestInfo()
         try:
             return Response(UserInfoSerializer(request.user).data)
@@ -71,6 +73,19 @@ class FiscalAPIView(APIView):
             return req_inf.status(e.args[0], status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
+        """modification of tax data
+        :param fiscal: (dic):
+            :param rfc: (str)
+            :param business_name: (str)
+            :param physical_person: (bool)
+        :param address: (dict)
+            :param street: (str)
+            :param street_number: (str)
+            :param zip_code: (str)
+            :param neighborhood: (str)
+            :param city: (str)
+            :param state: (str)
+        """
         req_inf = RequestInfo()
         errors = []
         try:
@@ -105,6 +120,24 @@ class FiscalAPIView(APIView):
 @api_view(['POST'])
 @permission_classes((AllowAny, ))
 def create_simple_user(request):
+    """create simple user fiscal info
+    :basic_info: (dict)
+		:param email: (str)
+		:param first_name: (str)
+		:param last_name: (str)
+	:param fiscal: (dict)
+		:param rfc: (str)
+		:param business_name: (str)
+		:param physical_person: (bool)
+	:param address: (dict)
+		:param street: (str)
+		:param street_number: (str)
+		:param zip_code: (str)
+		:param neighborhood: (str)
+		:param city: (str)
+		:param state: (str)
+	}
+    """
     import random
     import re
     req_inf = RequestInfo()
